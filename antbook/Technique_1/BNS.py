@@ -17,18 +17,20 @@ for i in range( 1<<n_2 ):
 
 ps.sort()
 m = 1
+ps_ = [ps[0][1]]
 for i in range(1, 1<<n_2):
-    if ps[m-1][1] < ps[i][1]:
-        m += 1
-        ps[m] = ps[i]
+    if ps_[-1] < ps[i][1]:
+        ps_.append(ps[i][1])
 
 res = 0
 for i in range( 1<<(n-n_2) ):
-    sw, sv = 0
+    sw, sv = 0, 0
     for j in range(n-n_2):
         if i>>j&1:
             sw += w[n_2+j]
             sv += v[n_2+j]
 
     if sw <= W:
-        tv = (  
+        tv = bisect_left(ps_, W-sw)
+        res = max(res, sv + ps_[tv])
+print(res)
