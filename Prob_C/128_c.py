@@ -1,4 +1,3 @@
-from itertools import permutations
 n, m = map(int, input().split())
 s = []
 for _ in range(m):
@@ -12,7 +11,7 @@ for i in range(pow(2, n)):
     light = 0
     for j in range(m):
         on = 0
-        for k in range(1, s[j][0]+1):
+        for k in s[j][1:]:
             if switch[k-1]==1:
                 on += 1
         if on%2 == p[j]:

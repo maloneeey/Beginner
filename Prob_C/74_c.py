@@ -1,0 +1,9 @@
+a, b, c, d, e, f = map(int, input().split())
+UNIT = 100 + e
+weight = 0
+LIM_WATER = 0
+LIM_SUGAR = 0
+while weight <= f-UNIT:
+    weight += UNIT
+    LIM_WATER += 100
+    LIM_SUGAR += e
