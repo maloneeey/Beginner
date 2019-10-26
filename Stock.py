@@ -1,3 +1,6 @@
+import sys
+input = sys.stdin.readline
+
 class UnionFind:
     def __init__(self, n):
         self.table = [-1 for _ in range(n)]

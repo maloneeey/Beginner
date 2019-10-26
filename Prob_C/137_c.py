@@ -1,16 +1,21 @@
-N = int(input())
-s =[]
-count = 0
+import sys
+from itertools import accumulate
+input = sys.stdin.readline
 
-for i in range(N):
-    tmp = list( input() )
-    tmp.sort()
-    tmp = ''.join( tmp )
-    s.append( tmp )
+def acm(x):
+    ary = [ i for i in range(x) ]
+    return sum(ary)
 
-    for j in range(i-1):
-        if s[i] == s[j]:
-            count = count + 1
+n = int(input())
+strings = {}
+for _ in range(n):
+    obj = ('').join(sorted(input()))
+    if obj in strings:
+        strings[obj] += 1
+    else:
+        strings[obj] = 1
 
-print(count)
-
+res = 0
+for obj in strings:
+    res += acm(strings[obj])
+print(res)

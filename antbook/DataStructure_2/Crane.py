@@ -1,4 +1,4 @@
-from math import sin,cos, pi
+from math import sin, cos, pi
 ST_SIZE = 1<<15 - 1
 
 def init(k, l, r):
@@ -8,8 +8,8 @@ def init(k, l, r):
         vy[k] = L[l]
     else:
         lch, rch = k*2+1, k*2+2
-        init( lch, l, (l+r)/2 )
-        init( rch, (l+r)/2, r )
+        init( lch, l, int((l+r)/2) )
+        init( rch, int((l+r)/2), r )
         vy[k] = vy[lch] + vy[rch]
 
 def change(s, a, v, l, r):
@@ -33,7 +33,7 @@ A = list(map(int, input().split()))
 ang = [ 0 for _ in range(ST_SIZE) ]
 vx = [ 0 for _ in range(ST_SIZE) ]
 vy = [ 0 for _ in range(ST_SIZE) ]
-prv = [ pi for _ in range(1, N) ]
+prv = [0] + [ pi for _ in range(1, N) ]
 init(0, 0, N)
 
 for i in range(C):
@@ -42,4 +42,4 @@ for i in range(C):
 
     change(s, a-prv[s], 0, 0, N)
     prv[s] = a
-    print("{:.2f} {:.2f}").format( vx[0], vy[0] )
+    print("{:.2f} {:.2f}".format( vx[0], vy[0] ) )
