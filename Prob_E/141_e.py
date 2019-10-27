@@ -1,7 +1,15 @@
 n = int(input())
-s = list(input())
+s = input()
 
-dp = [ [0 for _ in range(n+1)] for _ in range(n+1)]
-for i in range(n-1, -1, -1):
-    for j in range(n-1, -1, -1):
-        dp[i][j] = dp[i+1][j+1] + 1 if s[i]==s[j] else 0
+res = 0
+i,j = 0, 1
+while j<n:
+    if s[i:j] in s[j:]:
+        res = max(res, j-i)
+        j += 1
+    else:
+        i += 1
+    if i==j:
+        i += 1
+        j += 2
+print(res)

@@ -1,42 +1,23 @@
-N, K = map(int, input().split())
-s = list(input())
-if s[0] == 'L':
-    s.insert(0, 'R')
-else:
-    s.insert(0, 'L')
+n, k = map(int, input().split())
+lr = list(input())
+j = 0
+counts = [0]
+for i in range(n):
+    if lr[j] == lr[i]:
+        counts[-1] += 1
+    else:
+        j = i
+        counts.append(1)
 
-if s[N] == 'L':
-    s.append('R')
-else:
-    s.append('L')
-
-for _ in range(K):
-    t = s.copy()
-    for i in range(0, N+1):
-        if s[i] != s[i+1]:
-            start = i+1
-    for i in range(N+1, 0, -1):
-        if s[i] != s[i-1]:
-            end = i-1
-    if end <= start:
+for _ in range(k):
+    if len(counts)>=3:
+        counts[0] += counts[1]+counts[2]
+        del counts[1:3]
+    elif len(counts)==2:
+        counts[0] += counts[1]
+        del counts[1]
+    else:
         break
-    for i in range(end-start+1):
-        if t[start+i] == 'L':
-            s[end-i] = 'R'
-        else:
-            s[end-i] = 'L'
-    if s[1] == 'L':
-        s[0] = 'R'
-    else:
-        s[0] = 'L'
-    if s[N] == 'L':
-        s[N+1] = 'R'
-    else:
-        s[N+1] = 'L'
 
-count = 0
-for i in range(1, N):
-    if s[i] == s[i+1]:
-        count = count + 1
-
+count = sum(counts) - len(counts)
 print(count)
