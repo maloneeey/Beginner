@@ -1,5 +1,7 @@
 import sys
+
 input = sys.stdin.readline
+
 
 class UnionFind:
     def __init__(self, n):
@@ -22,26 +24,27 @@ class UnionFind:
             return
         d1 = self.table[r1]
         d2 = self.table[r2]
-        if d1<=d2:
+        if d1 <= d2:
             self.table[r2] = r1
-            if d1==d2:
+            if d1 == d2:
                 self.table[r1] -= 1
         else:
             self.table[r1] = r2
 
+
 class BIT:
     def __init__(self, n):
-        self.bit = [ 0 for _ in range(n+1) ]
+        self.bit = [0 for _ in range(n + 1)]
         self.size = n
 
     def bitSum(self, i):
         self.s = 0
         while i > 0:
             self.s += self.bit[i]
-            i -=  i & -i
+            i -= i & -i
         return self.s
 
     def bitAdd(self, i, x):
         while i <= self.size:
             self.bit[i] += x
-            i +=  i & -i
+            i += i & -i
