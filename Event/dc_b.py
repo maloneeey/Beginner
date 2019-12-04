@@ -1,19 +1,12 @@
+from itertools import accumulate
+
 n = int(input())
 a = list(map(int, input().split()))
 
-cur, prv = 0, 0
-sum_a = sum(a)
-mid = sum_a//2
-cost = 0
-if sum_a%2 != 0:
-    cost += 1
-    mid += 1
-for i in range(n):
-    cur += a[i]
-    if abs(cur-mid) > abs(prv-mid):
-        break
-    prv = cur
+sum_l = [0]+list(accumulate(a))
+sum_r = [0]+list(accumulate(a[-1::-1]))
 
-obj = prv
-cost += abs(obj-mid)*2
+cost = sum_r[-1]
+for i in range(n+1):
+    cost = min(cost, abs(sum_l[i]-sum_r[n-i]))
 print(cost)
