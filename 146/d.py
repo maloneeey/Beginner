@@ -1,28 +1,34 @@
+from collections import deque
 import sys
 input = sys.stdin.readline
 
 n = int(input())
 adj = [[] for _ in range(n)]
-cnt = 1
-res = [
-usd = [[] for _ in range(n)]
+edge = {}
 
-for _ in range(n-1):
+for i in range(n-1):
     a, b = map(int, input().split())
     adj[a-1].append(b-1)
+    adj[b-1].append(a-1)
+    edge[(a-1, b-1)] = i
+    edge[(b-1, a-1)] = i
 
-num = 0
+que = deque()
+que.append(0)
+usd = [0]+[-1]*(n-1)
+ans = [0]*(n-1)
 
-stc = []
-for a in adj[0]:
-    stc.append( (0, a, [0]) )
-
-while stc:
-    u, v, clr = stc.popleft()
-    usd[v].append(clr); usd[u].append(clr)
-
-    for vv in adj[v]:
-        if vv == u:
-            continue
-        else:
-            stc.append(v, vv, )
+while que:
+    v = que.pop()
+    j = 1
+    for u in adj[v]:
+        if usd[u] < 0:
+            if j == usd[v]:
+                j += 1
+            usd[u] = j
+            ans[edge[(u, v)]] = j
+            que.appendleft(u)
+            j += 1
+print(max(ans))
+for a in ans:
+    print(a)
